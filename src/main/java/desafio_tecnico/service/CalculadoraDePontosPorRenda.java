@@ -1,11 +1,10 @@
 package desafio_tecnico.service;
 
-import desafio_tecnico.cadastroFamilia.Familia;
+import desafio_tecnico.familia.Familia;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class CalculadoraDePontosPorRenda {
-
     private final Familia familia;
 
     public int calcular() {

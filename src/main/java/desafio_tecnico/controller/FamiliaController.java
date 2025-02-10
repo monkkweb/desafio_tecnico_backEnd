@@ -1,6 +1,6 @@
 package desafio_tecnico.controller;
 
-import desafio_tecnico.cadastroFamilia.Familia;
+import desafio_tecnico.familia.Familia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

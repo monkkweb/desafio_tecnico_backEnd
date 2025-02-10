@@ -1,6 +1,6 @@
 package desafio_tecnico.service;
 
-import desafio_tecnico.cadastroFamilia.Familia;
+import desafio_tecnico.familia.Familia;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

@@ -1,6 +1,6 @@
 package desafio_tecnico.controller;
 
-import desafio_tecnico.cadastroFamilia.Familia;
+import desafio_tecnico.familia.Familia;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +14,7 @@ import desafio_tecnico.service.CalculadoraDePontosSomados;
 public class CalculadoraDePontosSomadosController {
 
     @PostMapping("/calcular")
-    public int calculadora(@RequestBody Familia familia) {
+    public int calcular(@RequestBody Familia familia) {
         var calculadoraPorDependentes = new CalculadoraDePontosPorDependentes(familia);
         var calculadoraPorRenda = new CalculadoraDePontosPorRenda(familia);
         var calculadoraDePontosSomados = new CalculadoraDePontosSomados(calculadoraPorRenda, calculadoraPorDependentes);

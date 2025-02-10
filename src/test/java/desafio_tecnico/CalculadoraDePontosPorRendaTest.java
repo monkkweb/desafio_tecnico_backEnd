@@ -1,7 +1,7 @@
 package desafio_tecnico;
 
-import desafio_tecnico.cadastroFamilia.Dependente;
-import desafio_tecnico.cadastroFamilia.Familia;
+import desafio_tecnico.familia.Dependente;
+import desafio_tecnico.familia.Familia;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

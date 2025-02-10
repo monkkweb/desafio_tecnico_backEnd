@@ -1,17 +1,17 @@
-package desafio_tecnico.cadastroFamilia;
+package desafio_tecnico.familia;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
+@EqualsAndHashCode(of = "id")
 @Table(name = "tb_familias")
 public class Familia {
     @Id
@@ -22,5 +22,4 @@ public class Familia {
     @JsonManagedReference
     private List<Dependente> dependentes;
 
-    public Familia() {}
 }

@@ -1,15 +1,17 @@
-package desafio_tecnico.cadastroFamilia;
+package desafio_tecnico.familia;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "tb_dependente")
 public class Dependente {
     @Id
@@ -20,7 +22,4 @@ public class Dependente {
     @ManyToOne
     @JsonBackReference
     private Familia familia;
-
-    public Dependente() {
-    }
 }
