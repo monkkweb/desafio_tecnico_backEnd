@@ -1,15 +1,15 @@
 package desafio_tecnico.service;
 
 import desafio_tecnico.familia.Familia;
-import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
-@RequiredArgsConstructor
+@Component
 public class CalculadoraDePontosPorDependentes {
-    private final Familia familia;
 
-    public int calcular() {
-        var quantidadeDeDependentes = familia.getDependentes().stream().filter(dependente -> dependente.getIdade() < 18).toList()
-                .size();
+    public int calcular(Familia familia) {
+        var quantidadeDeDependentes = familia.getDependentes().stream()
+                .filter(dependente -> dependente.getIdade() < 18)
+                .toList().size();
         if (quantidadeDeDependentes >= 3)
             return 3;
         if (quantidadeDeDependentes >= 1)
