@@ -24,7 +24,7 @@ public class FamiliaController {
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<List<Familia>> listaDeFamilias() {
+    public ResponseEntity<?> listaDeFamilias() {
         List<Familia> familias = repositorioDeFamilia.findAll();
 
         familias.forEach(familia -> {

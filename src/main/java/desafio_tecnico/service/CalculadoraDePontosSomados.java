@@ -13,7 +13,6 @@ public class CalculadoraDePontosSomados {
     public int calcularPara(Familia familia) {
         var pontosPorRenda = calculadoraDePontosPorRenda.calcular(familia);
         var pontosPorDependentes = calculadoraDePontosPorDependentes.calcular(familia);
-        var pontos = pontosPorRenda + pontosPorDependentes;
         return pontosPorRenda + pontosPorDependentes;
 
     }
