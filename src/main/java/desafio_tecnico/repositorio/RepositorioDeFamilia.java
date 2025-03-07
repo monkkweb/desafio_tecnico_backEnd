@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RepositorioDeFamilia extends JpaRepository<Familia, Long> {
+
 }
