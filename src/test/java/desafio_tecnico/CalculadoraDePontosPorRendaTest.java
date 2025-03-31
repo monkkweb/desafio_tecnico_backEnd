@@ -36,7 +36,7 @@ class CalculadoraDePontosPorRendaTest {
 
         var pontos = calculadora.calcular(familia);
 
-        Assertions.assertEquals(3, pontos);
+        Assertions.assertEquals(3, calculadora.calcular(familia));
     }
 
     @Test
