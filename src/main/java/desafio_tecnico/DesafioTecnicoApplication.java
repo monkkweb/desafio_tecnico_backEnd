@@ -12,6 +12,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class DesafioTecnicoApplication {
 
+    //TODO: Criar dtos das entidades
+    //TODO: Melhoria de calculo
+    //TODO: Melhoria nos testes
+    //TODO: Criar regras nova -> fazer calculo para a data de registro e analaisar se tera mudança de pontuação para
+    // os dependetes de cada familia e recalcular os dempententes
+
 	public static void main(String[] args) {
 		SpringApplication.run(DesafioTecnicoApplication.class, args);
 	}
