@@ -17,6 +17,7 @@ public class DesafioTecnicoApplication {
     //TODO: Melhoria nos testes
     //TODO: Criar regras nova -> fazer calculo para a data de registro e analaisar se tera mudança de pontuação para
     // os dependetes de cada familia e recalcular os dempententes
+    // criar um login de verdade por email
 
 	public static void main(String[] args) {
 		SpringApplication.run(DesafioTecnicoApplication.class, args);

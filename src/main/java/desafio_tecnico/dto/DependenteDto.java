@@ -1,16 +1,17 @@
 package desafio_tecnico.dto;
 
 import desafio_tecnico.familia.Dependente;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-//TODO: Ver quais anotações deve ser usadas aqui.
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class DependenteDto {
-
     private Long id;
-    //mudar essa lista
-    private List<Dependente> nomeMembro;
+    private String nome;
     private Integer idade;
 }

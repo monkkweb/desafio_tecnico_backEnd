@@ -1,5 +1,7 @@
 package desafio_tecnico.controller;
 
+import desafio_tecnico.dto.DependenteDto;
+import desafio_tecnico.dto.FamiliaDto;
 import desafio_tecnico.familia.Dependente;
 import desafio_tecnico.familia.Familia;
 import desafio_tecnico.repositorio.RepositorioDeFamilia;
@@ -20,10 +22,10 @@ public class FamiliaController {
     private CalculadoraDePontosSomados calculadoraDePontos;
 
     @PostMapping("/salvar")
-    public ResponseEntity<?> salvar(@RequestBody Familia familia) {
-        List<Dependente> dependentesMenores = familia.getDependentes().stream().filter(dependente -> dependente.getIdade() < 18)
+    public ResponseEntity<?> salvar(@RequestBody FamiliaDto familiaDto) {
+        List<DependenteDto> dependentesMenores = familiaDto.getDependenteDtos().stream().filter(dependente -> dependente.getIdade() < 18)
                 .toList();
-        familia.setDependentes(dependentesMenores);
+        familiaDto.setDependenteDtos(dependentesMenores);
         return ResponseEntity.ok(repositorioDeFamilia.save(familia));
     }
 
