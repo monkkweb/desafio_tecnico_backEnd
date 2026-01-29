@@ -18,7 +18,7 @@ import java.util.List;
 import static org.instancio.Select.field;
 
 @ExtendWith(MockitoExtension.class)
-class CalculadoraDePontosPorDependentesTest {
+class  CalculadoraDePontosPorDependentesTest {
 
     private List<Dependente> dependentes;
     @Mock

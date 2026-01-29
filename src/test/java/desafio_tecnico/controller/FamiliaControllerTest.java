@@ -1,8 +1,8 @@
 package desafio_tecnico.controller;
 
-import desafio_tecnico.familia.Dependente;
+import desafio_tecnico.dto.FamiliaDto;
 import desafio_tecnico.familia.Familia;
-import desafio_tecnico.repositorio.RepositorioDeFamilia;
+import desafio_tecnico.service.FamiliaService;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,36 +12,43 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
-import java.util.Optional;
-
 import static org.instancio.Select.field;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class FamiliaControllerTest {
     @Mock
-    private RepositorioDeFamilia repositorio;
+    private FamiliaService familiaService; // Agora mockamos o Service
     @InjectMocks
-    private FamiliaController cadastro;
+    private FamiliaController controller; // Nome mais adequado que "cadastro"
 
     @Test
-    void deve_salvar_no_repositorio_os_dependentes_com_ah_renda_da_familia() {
-        var dependentes = Instancio.createList(Dependente.class);
-        var familia = new Familia(1L, 1200d, dependentes, 1);
+    void deve_salvar_uma_familia_corretamente() {
+        // Cenário
+        var familiaDto = Instancio.create(FamiliaDto.class);
+        var familiaSalva = Instancio.create(Familia.class);
+        
+        when(familiaService.criar(any(FamiliaDto.class))).thenReturn(familiaSalva);
 
-        var response = cadastro.salvar(familia);
+        // Ação
+        var response = controller.salvar(familiaDto);
 
-        Assertions.assertEquals(ResponseEntity.ok(repositorio.save(familia)), response);
+        // Verificação
+        Assertions.assertEquals(ResponseEntity.ok(familiaSalva), response);
+        Assertions.assertEquals(familiaSalva, response.getBody());
     }
 
     @Test
     void deve_retornar_a_familia_pelo_id() {
+        // Cenário
         var familia = Instancio.of(Familia.class).set(field(Familia::getId), 1L).create();
-        when(repositorio.findById(1L)).thenReturn(Optional.of(familia));
+        when(familiaService.findById(1)).thenReturn(familia);
 
-        var response = cadastro.consultaFamilia(1L);
+        // Ação
+        var response = controller.consultaFamilia(1);
 
+        // Verificação
         Assertions.assertEquals(familia, response.getBody());
     }
-
 }

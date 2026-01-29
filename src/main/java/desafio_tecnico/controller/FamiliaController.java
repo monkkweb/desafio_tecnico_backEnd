@@ -1,11 +1,8 @@
 package desafio_tecnico.controller;
 
-import desafio_tecnico.dto.DependenteDto;
 import desafio_tecnico.dto.FamiliaDto;
-import desafio_tecnico.familia.Dependente;
 import desafio_tecnico.familia.Familia;
-import desafio_tecnico.repositorio.RepositorioDeFamilia;
-import desafio_tecnico.service.CalculadoraDePontosSomados;
+import desafio_tecnico.service.FamiliaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,37 +13,25 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RequestMapping("/familias")
 public class FamiliaController {
+
     @Autowired
-    private RepositorioDeFamilia repositorioDeFamilia;
-    @Autowired
-    private CalculadoraDePontosSomados calculadoraDePontos;
+    private FamiliaService familiaService;
 
     @PostMapping("/salvar")
-    public ResponseEntity<?> salvar(@RequestBody FamiliaDto familiaDto) {
-        List<DependenteDto> dependentesMenores = familiaDto.getDependenteDtos().stream().filter(dependente -> dependente.getIdade() < 18)
-                .toList();
-        familiaDto.setDependenteDtos(dependentesMenores);
-        return ResponseEntity.ok(repositorioDeFamilia.save(familia));
+    public ResponseEntity<Familia> salvar(@RequestBody FamiliaDto familiaDto) {
+        Familia familiaSalva = familiaService.criar(familiaDto);
+        return ResponseEntity.ok(familiaSalva);
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<?> listaDeFamilias() {
-        List<Familia> familias = repositorioDeFamilia.findAll();
-
-        familias.forEach(familia -> {
-            Integer novaPontuacao = calculadoraDePontos.calcularPara(familia);
-
-            if (familia.getPontuacao() == null || !familia.getPontuacao().equals(novaPontuacao)) {
-                familia.setPontuacao(novaPontuacao);
-                repositorioDeFamilia.save(familia);
-            }
-        });
+    public ResponseEntity<List<Familia>> listaDeFamilias() {
+        List<Familia> familias = familiaService.findAll();
         return ResponseEntity.ok(familias);
     }
 
     @GetMapping("/consulta-familia/{id}")
-    public ResponseEntity<?> consultaFamilia(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(repositorioDeFamilia.findById(id).get());
+    public ResponseEntity<Familia> consultaFamilia(@PathVariable("id") Integer id) {
+        Familia familia = familiaService.findById(id);
+        return ResponseEntity.ok(familia);
     }
-
 }

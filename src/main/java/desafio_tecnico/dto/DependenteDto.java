@@ -1,15 +1,14 @@
 package desafio_tecnico.dto;
 
-import desafio_tecnico.familia.Dependente;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class DependenteDto {
     private Long id;
     private String nome;

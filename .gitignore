@@ -31,3 +31,20 @@ build/
 
 ### VS Code ###
 .vscode/
+# Ignorar arquivos e pastas do sistema
+.idea/
+.vscode/
+target/
+*.iml
+*.log
+*.exe
+*.dll
+*.dat
+*.ini
+
+# Ignorar pastas do usuário
+/Desktop/
+/Downloads/
+/Documents/
+/Pictures/
+/Videos/
