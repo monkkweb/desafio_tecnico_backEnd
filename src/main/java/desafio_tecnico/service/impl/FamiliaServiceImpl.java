@@ -3,6 +3,7 @@ package desafio_tecnico.service.impl;
 import desafio_tecnico.dto.FamiliaDto;
 import desafio_tecnico.familia.Familia;
 import desafio_tecnico.mapper.DependenteMapper;
+import desafio_tecnico.mapper.FamiliaMapper;
 import desafio_tecnico.repositorio.RepositorioDeFamilia;
 import desafio_tecnico.service.CalculadoraDePontosSomados;
 import desafio_tecnico.service.FamiliaService;
@@ -17,10 +18,10 @@ public class FamiliaServiceImpl implements FamiliaService {
     private RepositorioDeFamilia repositorioDeFamilia;
     @Autowired
     private CalculadoraDePontosSomados calculadoraDePontosSomados;
-
+    @Autowired
+    private FamiliaMapper familiaMapper;
     @Autowired
     private DependenteMapper dependenteMapper;
-
 
     @Override
     public Familia findById(Integer id) {
@@ -35,15 +36,14 @@ public class FamiliaServiceImpl implements FamiliaService {
 
     @Override
     public Familia criar(FamiliaDto obj) {
-        Familia familia = new Familia();
-        familia.setRendaTotalDaFamilia(obj.getRendaTotalDaFamilia());
-        familia.setDependentes(dependenteMapper.toEntity(obj.getDependenteDtos(), familia));
-        familia.setPontuacao(calculadoraDePontosSomados.calcularPara(familia));
+        Familia familia = familiaMapper.toEntity(obj);
         return repositorioDeFamilia.save(familia);
     }
 
     @Override
     public Familia atualizar(Integer id, FamiliaDto obj) {
-        return null;
+        Familia familiaExistente = findById(id);
+        Familia familiaAtualizada = familiaMapper.updateEntity(familiaExistente, obj);
+        return repositorioDeFamilia.save(familiaAtualizada);
     }
 }

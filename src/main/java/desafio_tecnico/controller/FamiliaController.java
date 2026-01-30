@@ -1,5 +1,6 @@
 package desafio_tecnico.controller;
 
+import desafio_tecnico.dto.DependenteDto;
 import desafio_tecnico.dto.FamiliaDto;
 import desafio_tecnico.familia.Familia;
 import desafio_tecnico.service.FamiliaService;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -18,20 +20,39 @@ public class FamiliaController {
     private FamiliaService familiaService;
 
     @PostMapping("/salvar")
-    public ResponseEntity<Familia> salvar(@RequestBody FamiliaDto familiaDto) {
+    public ResponseEntity<FamiliaDto> salvar(@RequestBody FamiliaDto familiaDto) {
         Familia familiaSalva = familiaService.criar(familiaDto);
-        return ResponseEntity.ok(familiaSalva);
+        return ResponseEntity.ok(converterParaDto(familiaSalva));
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<List<Familia>> listaDeFamilias() {
+    public ResponseEntity<List<FamiliaDto>> listaDeFamilias() {
         List<Familia> familias = familiaService.findAll();
-        return ResponseEntity.ok(familias);
+        List<FamiliaDto> familiaDto = familias.stream()
+                .map(this::converterParaDto)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(familiaDto);
     }
 
     @GetMapping("/consulta-familia/{id}")
-    public ResponseEntity<Familia> consultaFamilia(@PathVariable("id") Integer id) {
+    public ResponseEntity<FamiliaDto> consultaFamilia(@PathVariable("id") Integer id) {
         Familia familia = familiaService.findById(id);
-        return ResponseEntity.ok(familia);
+        return ResponseEntity.ok(converterParaDto(familia));
+    }
+
+    // Método auxiliar privado para não poluir o código e não mexer no Mapper externo
+    private FamiliaDto converterParaDto(Familia familia) {
+        FamiliaDto dto = new FamiliaDto();
+        dto.setId(familia.getId());
+        dto.setRendaTotalDaFamilia(familia.getRendaTotalDaFamilia());
+        dto.setPontuacao(familia.getPontuacao());
+
+        if (familia.getDependentes() != null) {
+            List<DependenteDto> dependentesDto = familia.getDependentes().stream()
+                    .map(dep -> new DependenteDto(dep.getId(), dep.getNome(), dep.getIdade()))
+                    .collect(Collectors.toList());
+            dto.setDependenteDtos(dependentesDto);
+        }
+        return dto;
     }
 }

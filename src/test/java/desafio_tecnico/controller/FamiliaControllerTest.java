@@ -19,9 +19,9 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class FamiliaControllerTest {
     @Mock
-    private FamiliaService familiaService; // Agora mockamos o Service
+    private FamiliaService familiaService;
     @InjectMocks
-    private FamiliaController controller; // Nome mais adequado que "cadastro"
+    private FamiliaController controller;
 
     @Test
     void deve_salvar_uma_familia_corretamente() {
@@ -29,26 +29,31 @@ class FamiliaControllerTest {
         var familiaDto = Instancio.create(FamiliaDto.class);
         var familiaSalva = Instancio.create(Familia.class);
         
+        // O service retorna a entidade
         when(familiaService.criar(any(FamiliaDto.class))).thenReturn(familiaSalva);
 
         // Ação
         var response = controller.salvar(familiaDto);
 
         // Verificação
-        Assertions.assertEquals(ResponseEntity.ok(familiaSalva), response);
-        Assertions.assertEquals(familiaSalva, response.getBody());
+        // O controller deve retornar um DTO com os dados da entidade salva
+        Assertions.assertEquals(200, response.getStatusCodeValue());
+        Assertions.assertEquals(familiaSalva.getId(), response.getBody().getId());
+        Assertions.assertEquals(familiaSalva.getRendaTotalDaFamilia(), response.getBody().getRendaTotalDaFamilia());
     }
 
     @Test
     void deve_retornar_a_familia_pelo_id() {
         // Cenário
         var familia = Instancio.of(Familia.class).set(field(Familia::getId), 1L).create();
+        
         when(familiaService.findById(1)).thenReturn(familia);
 
         // Ação
         var response = controller.consultaFamilia(1);
 
         // Verificação
-        Assertions.assertEquals(familia, response.getBody());
+        Assertions.assertEquals(200, response.getStatusCodeValue());
+        Assertions.assertEquals(familia.getId(), response.getBody().getId());
     }
 }
