@@ -32,7 +32,7 @@ class  CalculadoraDePontosPorDependentesTest {
     }
 
     @Test
-    void deve_pontuar_tres_pontos_caso_tenha_mais_de_dois_dependentes() {
+    void deve_retornar_tres_pontos_quando_tiver_tres_ou_mais_dependentes_menores() {
         Mockito.when(familia.getDependentes()).thenReturn(dependentes);
 
         var resultado = calculadora.calcular(familia);
@@ -41,7 +41,7 @@ class  CalculadoraDePontosPorDependentesTest {
     }
 
     @Test
-    void deve_pontuar_dois_pontos_caso_tenha_um_ou_dois_dependentes() {
+    void deve_retornar_dois_pontos_quando_tiver_um_ou_dois_dependentes_menores() {
         dependentes = Instancio.ofList(Dependente.class).size(2).set(field(Dependente::getIdade), 10).create();
         Mockito.when(familia.getDependentes()).thenReturn(dependentes);
 
@@ -51,7 +51,7 @@ class  CalculadoraDePontosPorDependentesTest {
     }
 
     @Test
-    void deve_pontuar_zero_pontos_pois_dependentes_sao_maior_de_idade_e_nao_sao_considerados_dependente() {
+    void deve_retornar_zero_pontos_quando_todos_dependentes_forem_maiores_de_idade() {
         dependentes = Instancio.ofList(Dependente.class).set(field(Dependente::getIdade), 18).create();
         Mockito.when(familia.getDependentes()).thenReturn(dependentes);
 

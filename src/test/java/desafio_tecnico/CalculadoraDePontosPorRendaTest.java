@@ -18,7 +18,7 @@ class CalculadoraDePontosPorRendaTest {
     private CalculadoraDePontosPorRenda calculadora;
 
     @Test
-    void deve_pontuar_cinco_pontos_caso_renda_total_da_familia_seja_ate_novecentos() {
+    void deve_retornar_cinco_pontos_quando_renda_for_ate_novecentos() {
         var familia = Instancio.of(Familia.class)
                 .generate(field(Familia::getRendaTotalDaFamilia), gen -> gen.doubles().min(0d).max(900d))
                 .create();
@@ -29,7 +29,7 @@ class CalculadoraDePontosPorRendaTest {
     }
 
     @Test
-    void deve_pontuar_tres_pontos_caso_renda_total_da_familia_seja_entre_novecentos_e_um_ah_mil_e_quientos() {
+    void deve_retornar_tres_pontos_quando_renda_estiver_entre_novecentos_e_um_e_mil_e_quinhentos() {
         var familia = Instancio.of(Familia.class)
                 .generate(field(Familia::getRendaTotalDaFamilia), gen -> gen.doubles().min(901d).max(1500d))
                 .create();
@@ -40,7 +40,7 @@ class CalculadoraDePontosPorRendaTest {
     }
 
     @Test
-    void deve_pontuar_zero_pontos_caso_renda_total_da_familia_seja_maior_que_1500() {
+    void deve_retornar_zero_pontos_quando_renda_for_maior_que_mil_e_quinhentos() {
         var familia = Instancio.of(Familia.class)
                 .generate(field(Familia::getRendaTotalDaFamilia), gen -> gen.doubles().min(1500.01d))
                 .create();
